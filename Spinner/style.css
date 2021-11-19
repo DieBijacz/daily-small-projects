@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+*{
+    font-family: 'Rubik', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    padding: 40px;
+}
+
+/* Spinner 1 */
+.spinner-1::before {
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    height: 60px;
+    width: 60px;
+    margin-left: -30px;
+    margin-top: -30px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    border-top-color: coral;
+    animation: spinner .7s linear infinite;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Spinner 2 */
+.spinner-2::before {
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    height: 60px;
+    width: 60px;
+    margin-left: -30px;
+    margin-top: -30px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: coral;
+    border-bottom-color: coral;
+    animation: spinner .7s ease infinite;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Spinner 3 */
+.spinner-3::before {
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    height: 60px;
+    width: 60px;
+    margin-left: -30px;
+    margin-top: -30px;
+    border-radius: 50%;
+    border-top: 3px solid coral;
+    border-right: 2px solid transparent;
+    animation: spinner .7s linear infinite;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
