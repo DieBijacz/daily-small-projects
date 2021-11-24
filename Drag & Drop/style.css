@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: #ccc;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.drag {
+  padding: 1rem;
+  background-color: white;
+  border: 3px solid #333;
+  cursor: move;
+}
+.drag.dragging {
+  opacity: 0.5;
+}
