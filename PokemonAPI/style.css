@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  font-family: "Cabin", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+body {
+  padding: 20px;
+}
+.pokemons {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pokemon {
+  width: 120px;
+  height: 150px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 2px 4px 5px rgb(114, 114, 114);
+}
