@@ -8,8 +8,22 @@
   padding: 0;
   margin: 0;
 }
-body {
-  padding: 20px;
+.container {
+  padding: 0 20px;
+}
+#search {
+  padding: 10px;
+  width: 300px;
+  outline: none;
+  border-radius: 20px;
+  border: none;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(228, 148, 142);
+  padding: 20px 0;
 }
 .pokemons {
   display: flex;
