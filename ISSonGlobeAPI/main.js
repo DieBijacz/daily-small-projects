@@ -1,5 +1,7 @@
 const api = 'https://api.wheretheiss.at/v1/satellites/25544'
-const map = L.map('map').setView([0, 0], 1);
+const map = L.map('map').setView([0, 0], 6);
+
+let firstTime = true
 
 // MARKER
 const issIcon = L.icon({
@@ -22,9 +24,15 @@ async function getData() {
     const {latitude, longitude} = data
     
     marker.setLatLng([latitude, longitude])
+    map.setView([latitude, longitude], map.getZoom())
+    // if (firstTime) {
+    //     firstTime = false
+    // }
     
     document.querySelector('#cords')
-    .innerHTML = `latitude: ${latitude} </br> longitude: ${longitude}`
+    .innerHTML = `
+    latitude: ${latitude.toFixed(2)}°${latitude > 0 ? 'N' : 'S'} </br> 
+    longitude: ${longitude.toFixed(2)}°${longitude > 0 ? 'E' : 'W'}`
 }
 
 getData()
