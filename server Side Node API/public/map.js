@@ -2,14 +2,16 @@ const api = 'https://api.wheretheiss.at/v1/satellites/25544'
 const map = L.map('map').setView([0, 0], 6);
 
 let firstTime = true
+let displayMyCords = false
+
+const myCoordsBtn = document.querySelector('#get-my-coords').addEventListener('click', (e) => {
+    displayMyCords = true
+    getMyCoords()
+    e.target.style.display = 'none'
+})
 
 // MY CORDS
-if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition((pos) => {
-        const myPosition = L.marker([pos.coords.latitude, pos.coords.longitude]).addTo(map);
-        myCordsDisply(pos)
-    })
-}
+
 
 // MARKER
 const issIcon = L.icon({
@@ -42,12 +44,22 @@ async function getData() {
     ISS latitude: ${latitude.toFixed(2)}°${latitude > 0 ? 'N' : 'S'} </br> 
     IS longitude: ${longitude.toFixed(2)}°${longitude > 0 ? 'E' : 'W'}`
 }
-function myCordsDisply(pos) {
+function displayMyCoords(pos) {
     document.querySelector('#my-cords')
     .innerHTML = `
     My latitude: ${pos.coords.latitude.toFixed(2)}°${pos.coords.latitude > 0 ? 'N' : 'S'} </br> 
     My longitude: ${pos.coords.longitude.toFixed(2)}°${pos.coords.longitude > 0 ? 'E' : 'W'}`
 }
+
+function getMyCoords() {
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            const myPosition = L.marker([pos.coords.latitude, pos.coords.longitude]).addTo(map);
+            displayMyCoords(pos)
+        })
+    }
+}
+
 
 getData()
 setInterval(getData, 1000)
