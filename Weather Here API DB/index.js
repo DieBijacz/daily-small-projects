@@ -28,3 +28,9 @@ app.get('/ISScoordsDB', (req, resp) => {
         err ? resp.end : resp.json(data)
     })
 })
+
+app.get('/ISScoordsDBclear', (req, resp) => {
+    ISSdatabase.remove({}, {multi: true}, (err, data) => {
+        err ? resp.end : resp.json(data)
+    })
+})

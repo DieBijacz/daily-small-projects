@@ -1,6 +1,6 @@
 const api = 'https://api.wheretheiss.at/v1/satellites/25544'
 
-let displayCoords = false
+let visible = false
 
 document.querySelector('#check-in').addEventListener('click', () => {
     sendMyData()
@@ -9,8 +9,11 @@ document.querySelector('#iss-coords').addEventListener('click', () => {
     getISSData()
 })
 document.querySelector('#display-coords').addEventListener('click', () => {
+    visible = !visible
     displayCoordsF()
-    return displayCoords = !displayCoords
+})
+document.querySelector('#clear-all').addEventListener('click', () => {
+    clearAllDataDB()
 })
 
 function sendMyData() {
@@ -26,7 +29,8 @@ function sendMyData() {
             }
             const resp = await fetch('/myCoords', options)
             const json = await resp.json()
-            console.log(json);
+
+            await getWeatherInfo(lat, lon)
         })
     }
 }
@@ -36,7 +40,10 @@ async function getISSData() {
     const ISS = await resp.json()
     const lat = ISS.latitude
     const lon = ISS.longitude
-    const data = { lat, lon}
+
+    const temp = await getWeatherInfo(lat, lon)
+    
+    const data = {lat, lon, temp}
     const options = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -44,10 +51,13 @@ async function getISSData() {
     }
     const respone = await fetch('/ISScoords', options)
     const json = await respone.json()
-    console.log(json);
+
+    displayCoordsF()
 }
+
 async function displayCoordsF() {
-    if (!displayCoords) {
+    document.querySelector('#list').innerHTML = ''
+    if (visible) {
         const list = document.querySelector('#list')
         const resp = await fetch('/ISScoordsDB')
         const data = await resp.json()
@@ -58,10 +68,25 @@ async function displayCoordsF() {
             element.innerHTML = `
             latitude: ${(item.lat).toFixed(2)}<br>
             longitude: ${(item.lon).toFixed(2)}<br>
+            temp: ${((item.temp)-274.15).toFixed(1)}°C<br>
             `
             list.appendChild(element)
         })
-    } else {
-        document.querySelector('#list').innerHTML = ''
     }
 }
+
+async function getWeatherInfo(lat, lon) {
+    const myWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=fea7f0cf2c0c99a17db8d3f8b36ec15d`
+    const respone = await fetch(myWeatherAPI)
+    const weather = await respone.json()
+    console.log(`${((weather.main.temp)-274.15).toFixed(1)}°C`);
+    return weather.main.temp
+}
+
+async function clearAllDataDB() {
+    const resp = await fetch('/ISScoordsDBclear')
+    const data = await resp.json()
+    console.log(data);
+}
+
+
