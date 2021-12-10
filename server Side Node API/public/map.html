@@ -22,8 +22,8 @@
         }
 
         #map {
-            height: 300px;
-            width: 400px;
+            height: 400px;
+            width: 600px;
         }
     </style>
 
@@ -34,8 +34,14 @@
         <a href="index.html">Home</a>
     </header>
     <div class="coords">
-        <button id="send-my-coords">Send coords</button>
-        <!-- <button id="get-my-coords">Get my coords</button> -->
+        <button id="get-coords">Get coords</button>
+        <button id="get-my-coords">Get my coords</button>
+        <button id="get-saved-coords">Get saved coords</button>
+        <br>
+        <form id="coord-form">
+            <input type="text" id="name-for-saved-coord" placeholder="name coord">
+            <button id="save-coord" type="submit">Save coord</button>
+        </form>
         <p id="my-cords"></p>
         <p id="cords"></p>
     </div>
