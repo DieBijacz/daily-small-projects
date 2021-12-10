@@ -32,11 +32,12 @@
 <body>
     <header>
         <a href="index.html">Home</a>
+        <a href="history.html">Saved</a>
     </header>
     <div class="coords">
+        <button id="follow">Follow ISS</button>
         <button id="get-coords">Get coords</button>
         <button id="get-my-coords">Get my coords</button>
-        <button id="get-saved-coords">Get saved coords</button>
         <br>
         <form id="coord-form">
             <input type="text" id="name-for-saved-coord" placeholder="name coord">
@@ -46,6 +47,12 @@
         <p id="cords"></p>
     </div>
     <div id="map"></div>
+    <button id="get-saved-coords">Get Saved Coords</button>
+    <div class="list">
+        <h4>Saved Coords:</h4>
+        <ul id="list-of-coords">
+        </ul>
+    </div>
     <script src="map.js" type="module"></script>
 </body>
 

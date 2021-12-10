@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History of saved Coords</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+        * {
+            font-family: 'Cabin', sans-serif;
+            text-decoration: none;
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="map.html">Back</a>
+    <h1>Saved Coords:</h1>
+    <button id="get-saved-coords">Get Saved Coords</button>
+    <div class="list">
+        <ul id="list-of-coords">
+        </ul>
+    </div>
+    <script>
+        document.querySelector('#get-saved-coords').addEventListener('click', () => {
+            getDataFromDB()
+        })
+        const list = document.querySelector('#list-of-coords')
+
+        async function getDataFromDB() {
+            const resp = await fetch('/ISSdataDB')
+            const data = await resp.json()
+            console.log(data);
+
+            for (item of data) {
+                const dataString = new Date(item.timeStamp).toLocaleString()
+                const element = document.createElement('li')
+                element.classList.add('saved-coord')
+                element.innerHTML = `
+                <hr>
+                date: ${dataString} </br>
+                latitude: ${(Math.abs(item.latitude)).toFixed(2)}°${item.latitude > 0 ? 'E' : 'W'} </br>
+                longitude: ${(Math.abs(item.longitude)).toFixed(2)}°${item.longitude > 0 ? 'N' : 'S'} </br>
+                `
+                list.appendChild(element)
+            }
+        }
+    </script>
+
+</body>
+
+</html>

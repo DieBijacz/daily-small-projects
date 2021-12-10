@@ -6,6 +6,7 @@ app.listen(3000, () => {console.log('list 3000')})
 app.use(express.static('public'))
 app.use(express.json({limit: '1mb'}))
 
+ISStempData = []
 const ISSpositionsDB = new Datastore('ISSPositions.db')
 ISSpositionsDB.loadDatabase()
 const timeStamp = Date.now()
@@ -15,33 +16,18 @@ app.post('/api', (request, response) => {
     const data = request.body
     data.timeStamp = timeStamp
     //and as response sends this
-    response.json({
-        status: 'success',
-        timestamp: timeStamp,
-        latitude: data.lat,
-        longitude: data.lon,
-    })
+    response.json(data)
 })
 
-app.post('/ISSdata', (req, res) => {
+app.post('/ISSdata', (req, resp) => {
     const data = req.body
     data.timeStamp = timeStamp
-    ISSpositionsDB.insert(data)
-    res.json({
-        status: 'gitara',
-        timestamp: timeStamp,
-        latitude: data.latitude,
-        longitude: data.longitude,
-        name: data.name
-    })
+    data.name ? ISSpositionsDB.insert(data) : ISStempData.push(data)
+    resp.json(data)
 })
 
-// app.post('/SavedISSCords', (req, res) => {
-
-//     res.json({
-//         status: 'gitara',
-//         timestamp: timeStamp,
-//         latitude: data.latitude,
-//         longitude: data.longitude,
-//     })
-// }
+app.get('/ISSdataDB', (req, resp) => {
+    ISSpositionsDB.find({}, (err, data) => {
+        err ? resp.end : resp.json(data)
+    })
+})

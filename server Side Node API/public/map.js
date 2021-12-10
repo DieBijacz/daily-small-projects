@@ -1,35 +1,6 @@
 const api = 'https://api.wheretheiss.at/v1/satellites/25544'
 const map = L.map('map').setView([0, 0], 6);
 
-// ========================== BUTTONS ==========================
-document.querySelector('#get-saved-coords').addEventListener('click', () => {
-    getSavedISSCords()
-})
-document.querySelector('#coord-form').addEventListener('submit', (e) => {
-    e.preventDefault()
-    const coordName = document.querySelector('#name-for-saved-coord')
-    sendISSCords(coordName.value)
-    coordName.value = ''
-})
-const sendCoordsBtn = document.querySelector('#get-coords')
-sendCoordsBtn.addEventListener('click', () => {
-    sendMyCoords()
-    sendISSCords()
-})
-let displayMyCords = false
-const myCoordsBtn = document.querySelector('#get-my-coords').addEventListener('click', (e) => {
-    displayMyCords = true
-    displayMyCoords()
-    e.target.style.display = 'none'
-})
-
-// ========================== MARKER ==========================
-const issIcon = L.icon({
-    iconUrl: 'International_Space_Station.png',
-    iconSize: [30, 20],
-    iconAnchor: [25, 16],
-});
-const marker = L.marker([0, 0], {icon: issIcon}).addTo(map);
 
 //============================ MAP ============================
 const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -76,26 +47,27 @@ async function sendISSCords(coordName) {
     const odp = await respp.json()
     console.log(odp);
 }
-// let firstTime = true
+let followISS = false
 async function getISSData() {
     const resp = await fetch(api)
     const data = await resp.json()
     const {latitude, longitude} = data
-
+    
+    
     marker.setLatLng([latitude, longitude])
-    map.setView([latitude, longitude], map.getZoom())
-    // if (firstTime) {
-    //     firstTime = false
-    // }
+    
+    if (followISS) {
+        map.setView([latitude, longitude], map.getZoom())
+    } 
+    
     
     document.querySelector('#cords')
     .innerHTML = `
-    ISS latitude: ${latitude.toFixed(2)}°${latitude > 0 ? 'N' : 'S'} </br> 
-    ISS longitude: ${longitude.toFixed(2)}°${longitude > 0 ? 'E' : 'W'}`
+    ISS latitude: ${(Math.abs(latitude)).toFixed(2)}°${latitude > 0 ? 'N' : 'S'}</br> 
+    ISS longitude: ${(Math.abs(longitude)).toFixed(2)}°${longitude > 0 ? 'E' : 'W'}`
 
     return (latitude, longitude)
 }
-//=========================== CORDS ===========================
 
 function displayMyCoords() {
     if ('geolocation' in navigator) {
@@ -103,19 +75,69 @@ function displayMyCoords() {
             const myPosition = L.marker([pos.coords.latitude, pos.coords.longitude]).addTo(map);
             document.querySelector('#my-cords')
             .innerHTML = `
-            My latitude: ${pos.coords.latitude.toFixed(2)}°${pos.coords.latitude > 0 ? 'N' : 'S'} </br> 
-            My longitude: ${pos.coords.longitude.toFixed(2)}°${pos.coords.longitude > 0 ? 'E' : 'W'}`
+            My pos: ${pos.coords.latitude.toFixed(2)}°${pos.coords.latitude > 0 ? 'N' : 'S'} </br> 
+            My pos: ${pos.coords.longitude.toFixed(2)}°${pos.coords.longitude > 0 ? 'E' : 'W'}`
         })
     }
 }
 
-async function getSavedISSCords() {
-    // const resp = await fetch('/SavedISSCords')
-    // const data = await resp.json()
-    console.log('===============');
-    // console.log(data);
-    console.log('===============');
+//============================ DB DATA ============================
+async function getDataFromDB() {
+    const list = document.querySelector('#list-of-coords')
+    const resp = await fetch('/ISSdataDB')
+    const data = await resp.json()
+    console.log(data);
+
+    data.forEach(item => {
+        const dataString = new Date(item.timeStamp).toLocaleString()
+        const element = document.createElement('li')
+        element.classList.add('saved-coord')
+        element.innerHTML = `
+        <hr>
+        date: ${dataString} </br>
+        latitude: ${(Math.abs(item.latitude)).toFixed(2)}°${item.latitude > 0 ? 'E' : 'W'} </br>
+        longitude: ${(Math.abs(item.longitude)).toFixed(2)}°${item.longitude > 0 ? 'N' : 'S'} </br>
+        `
+        list.appendChild(element)
+        const mark = L.marker([item.latitude, item.longitude]).addTo(map);
+        mark.bindTooltip(item.name === undefined ? '' : `${item.name}`).openTooltip();
+
+    })
 }
+
+//=========================== CORDS ===========================
+// ========================== BUTTONS ==========================
+document.querySelector('#coord-form').addEventListener('submit', (e) => {
+    e.preventDefault()
+    const coordName = document.querySelector('#name-for-saved-coord')
+    sendISSCords(coordName.value)
+    coordName.value = ''
+})
+document.querySelector('#follow').addEventListener('click', () => {
+    return followISS = !followISS
+})
+const sendCoordsBtn = document.querySelector('#get-coords')
+sendCoordsBtn.addEventListener('click', () => {
+    sendMyCoords()
+    sendISSCords()
+})
+let displayMyCords = false
+const myCoordsBtn = document.querySelector('#get-my-coords').addEventListener('click', (e) => {
+    displayMyCords = true
+    displayMyCoords()
+    e.target.style.display = 'none'
+})
+document.querySelector('#get-saved-coords').addEventListener('click', () => {
+    getDataFromDB()
+})
+
+// ========================== MARKER ==========================
+const issIcon = L.icon({
+    iconUrl: 'International_Space_Station.png',
+    iconSize: [30, 20],
+    iconAnchor: [25, 16],
+});
+const marker = L.marker([0, 0], {icon: issIcon}).addTo(map);
 
 getISSData()
 setInterval(getISSData, 1000)
