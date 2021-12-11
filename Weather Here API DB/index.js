@@ -1,6 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const Database = require('nedb')
 const app = express()
+console.log(process.env);
+
+const apiKey = process.env.apiKey
 
 app.listen(3000, () => {console.log('listen on 3000')})
 app.use(express.static('public'))
@@ -33,4 +37,8 @@ app.get('/ISScoordsDBclear', (req, resp) => {
     ISSdatabase.remove({}, {multi: true}, (err, data) => {
         err ? resp.end : resp.json(data)
     })
+})
+
+app.get('/apiKey', (req, resp) => {
+    resp.json(apiKey)
 })
