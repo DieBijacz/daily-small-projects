@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap");
+
+* {
+  font-family: "Lato", sans-serif;
+  box-sizing: border-box;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  line-height: 1.8em;
+  color: #666;
+}
+.pimg1,
+.pimg2,
+.pimg3 {
+  position: relative;
+  opacity: 0.7;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* here parallax happens */
+  background-attachment: fixed;
+}
+
+.pimg1 {
+  background-image: url("./assets/pexels-eberhard-grossgasteiger-629162.jpg");
+  min-height: 100%;
+}
+.pimg2 {
+  background-image: url("./assets/pexels-jaymantri-4827.jpg");
+  min-height: 600px;
+}
+.pimg3 {
+  background-image: url("./assets/pexels-pok-rie-4562617.jpg");
+  min-height: 600px;
+}
+
+.section {
+  text-align: center;
+  padding: 3rem 5rem;
+}
+
+.section-light {
+  background-color: #f4f4f4;
+  color: #666;
+}
+
+.section-dark {
+  background-color: #282e34;
+  color: #ddd;
+}
+
+.ptext {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: black;
+  font-size: 2em;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+}
+
+.border {
+  background-color: rgb(189, 204, 179);
+  padding: 20px;
+}
+
+.ptext .border.trans {
+  /* background-color: transparent; */
+}
+
+@media (max-width: 700px) {
+  .pimg1,
+  .pimg2,
+  .pimg3 {
+    background-attachment: scroll;
+  }
+}
