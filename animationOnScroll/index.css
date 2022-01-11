@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap");
+
+* {
+  font-family: "Lato", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 50%;
+}
+
+section {
+  padding: 3em;
+  height: 100vh;
+  position: relative;
+}
+section blockquote {
+  font-size: 2em;
+  width: 30%;
+  margin-top: 20%;
+  position: absolute;
+}
+section blockquote span {
+  width: 100%;
+  background: red;
+  display: block;
+  height: 5px;
+  margin-top: 20px;
+}
+section img {
+  position: absolute;
+}
+section img:nth-of-type(1) {
+  width: 50%;
+  right: 0;
+  top: 20%;
+}
+section img:nth-of-type(2) {
+  width: 40%;
+  right: 40%;
+  top: 45%;
+}
+section:nth-child(odd) {
+  background: rgb(248, 248, 248);
+}
+
+.sticky {
+  background: white !important;
+}
+
+#box {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  border: 5px solid #ddd;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
