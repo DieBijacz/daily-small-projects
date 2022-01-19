@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+
+* {
+  font-family: 'Inconsolata', monospace;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #ddd;
+}
+.card-text {
+  margin-left: 15px;
+  margin-top: 85px;
+  position: relative;
+}
+.card {
+  position: relative;
+  max-width: 400px;
+  height: 10rem;
+}
+.card-side {
+  position: absolute;
+  height: 10rem;
+  border-radius: 15px;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  width: 80%;
+  padding: 2rem;
+  transition: all 0.7s;
+}
+.card-side.back {
+  background-color: rgb(33, 132, 212);
+  transform: rotateY(-180deg);
+}
+.card-side.front {
+  background-color: rgb(47, 161, 255);
+}
+.card:hover .card-side.front {
+  transform: rotateY(180deg);
+}
+.card:hover .card-side.back {
+  transform: rotateY(0deg);
+}
+.visa {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  width: 20%;
+}
