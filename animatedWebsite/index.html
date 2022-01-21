@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Aaaaanimation time</title>
+</head>
+<body>
+  <div class="bg"></div>
+
+  <div class="container">
+      <div class="content">
+          <div class="content-inner">
+              <h1 class="text-reveal">Find your beach</h1>
+              <p class="text-reveal">Spend 14 nights in the world's most luxurious locations.</p>
+          </div>
+          <svg viewBox="0 0 24 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.9393 121.061C11.5251 121.646 12.4749 121.646 13.0607 121.061L22.6066 111.515C23.1924 110.929 23.1924 109.979 22.6066 109.393C22.0208 108.808 21.0711 108.808 20.4853 109.393L12 117.879L3.51471 109.393C2.92893 108.808 1.97918 108.808 1.39339 109.393C0.807607 109.979 0.807607 110.929 1.39339 111.515L10.9393 121.061ZM10.5 -6.55671e-08L10.5 120L13.5 120L13.5 6.55671e-08L10.5 -6.55671e-08Z" fill="white"/>
+        </svg>
+      </div>
+  </div>
+
+  <div class="locations-container">
+      <div class="local">
+          <img src="assets/pexels-marlon-martinez-1450082.jpg" alt="Sand and ocean">
+          <div class="info">
+              <p class="title">Los<span>Alacos</span></p>
+              <p>Pellentesque aliquam et fermentum odio ultricies nibh dolor massa. Malesuada magna amet suscipit netus nisl ullamcorper.</p>
+          </div>
+      </div>
+      <div class="local">
+          <img src="assets/pexels-jessica-lewis-creative-593322.jpg" alt="Sand and ocean">
+          <div class="info">
+              <p class="title">Los<span>Alacos</span></p>
+              <p>Pellentesque aliquam et fermentum odio ultricies nibh dolor massa. Malesuada magna amet suscipit netus nisl ullamcorper.</p>
+          </div>
+      </div>
+      <div class="local">
+          <img src="assets/pexels-snapwire-34950.jpg" alt="Sand and ocean">
+          <div class="info">
+              <p class="title">Los<span>Alacos</span></p>
+              <p>Pellentesque aliquam et fermentum odio ultricies nibh dolor massa. Malesuada magna amet suscipit netus nisl ullamcorper.</p>
+          </div>
+      </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    
+    let tl = gsap.timeline()
+
+    tl.from('.bg', {scale: 0.6, duration: 1, opacity: 0, ease: Expo.easeOut, delay: .2})
+      .to('.text-reveal', {opacity: 1, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', y:0, stagger: .3}, '-=2.9')
+
+
+  </script>
+</body>
+</html>
