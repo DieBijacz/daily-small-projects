@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(228, 228, 228);
+}
+
+.toast-container {
+  position: fixed;
+}
+.toast-container[data-position^='top'] {
+  top: 0;
+}
+.toast-container[data-position^='bottom'] {
+  bottom: 0;
+}
+.toast-container[data-position$='left'] {
+  left: 0;
+}
+.toast-container[data-position$='right'] {
+  right: 0;
+}
+
+.toast {
+  padding: 1rem;
+  background-color: white;
+  width: 300px;
+  border-radius: 0.2em;
+  margin: 10px;
+  position: relative;
+  box-shadow: 0 0 10px rgb(146, 146, 146);
+}
+
+.toast::after {
+  content: '\00D7';
+  position: absolute;
+  top: 0.1em;
+  right: 0.5em;
+}
