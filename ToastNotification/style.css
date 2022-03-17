@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hubballi&display=swap');
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Hubballi', cursive;
 }
 
 *,
@@ -17,7 +17,29 @@ body {
 
 .toast-container {
   position: fixed;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
+
+.toast {
+  position: relative;
+  width: 300px;
+  padding: 1rem;
+  border-radius: 0.2em;
+  background-color: white;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(146, 146, 146);
+}
+
+.toast::after {
+  content: '\00D7';
+  position: absolute;
+  top: 0.1em;
+  right: 0.5em;
+}
+
 .toast-container[data-position^='top'] {
   top: 0;
 }
@@ -30,20 +52,7 @@ body {
 .toast-container[data-position$='right'] {
   right: 0;
 }
-
-.toast {
-  padding: 1rem;
-  background-color: white;
-  width: 300px;
-  border-radius: 0.2em;
-  margin: 10px;
-  position: relative;
-  box-shadow: 0 0 10px rgb(146, 146, 146);
-}
-
-.toast::after {
-  content: '\00D7';
-  position: absolute;
-  top: 0.1em;
-  right: 0.5em;
+.toast-container[data-position$='center'] {
+  left: 50%;
+  transform: translateX(-50%);
 }
