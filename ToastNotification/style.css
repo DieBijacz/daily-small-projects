@@ -31,9 +31,25 @@ body {
   background-color: white;
   cursor: pointer;
   box-shadow: 0 0 10px rgb(146, 146, 146);
+  transition: transform 0.2s;
+}
+.toast-container[data-position$='right'] .toast {
+  transform: translateX(110%);
+}
+.toast-container[data-position$='left'] .toast {
+  transform: translateX(-110%);
+}
+.toast-container[data-position='top center'] .toast {
+  transform: translateY(-100vh);
+}
+.toast-container[data-position='bottom center'] .toast {
+  transform: translateY(100vh);
+}
+.toast-container .toast.show {
+  transform: translateX(0);
 }
 
-.toast::after {
+.toast.can-close::after {
   content: '\00D7';
   position: absolute;
   top: 0.1em;

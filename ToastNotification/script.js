@@ -1,6 +1,8 @@
 import Toast from './Toast.js'
 
-const toast = new Toast({
-  text: 'siema',
-  autoClose: false,
+document.querySelector('button').addEventListener('click', () => {
+  const toast = new Toast({
+    text: 'siema',
+    autoClose: 1000,
+  })
 })
