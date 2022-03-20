@@ -3,12 +3,23 @@ const DEFAULT_OPTIONS = {
   position: 'top right',
   onClose: () => {},
   canClose: true,
+  showProgress: true,
+  pauseOnHover: true,
 }
 
 export default class Toast {
   #toastElement
   #autoCloseTimeout
+  #progressInterval
   #removeBinded
+  #visibleSince
+  #timeTotal
+  #timeGone
+  #pause
+  #unpause
+  #paused = false
+  #hoverPause
+  #timeLeft
 
   constructor(options) {
     this.#toastElement = document.createElement('div')
@@ -17,6 +28,7 @@ export default class Toast {
       this.#toastElement.classList.add('show')
     })
     this.#removeBinded = this.remove.bind(this)
+    this.#hoverPause = () => (this.#paused = false)
     this.update({ ...DEFAULT_OPTIONS, ...options })
   }
 
@@ -38,8 +50,45 @@ export default class Toast {
 
   set autoClose(value) {
     if (value === false) return
-    if (this.#autoCloseTimeout != null) clearTimeout(this.#autoCloseTimeout)
-    this.#autoCloseTimeout = setTimeout(() => this.remove(), value)
+    this.#timeTotal = value
+    this.#timeLeft = this.#timeTotal
+    this.#progressInterval = setInterval(() => {
+      this.#timeLeft -= 10
+      if (this.#paused) {
+        clearInterval(this.#progressInterval)
+      } else {
+        if (this.#timeLeft <= 0) {
+          this.remove()
+          clearInterval(this.#progressInterval)
+        }
+      }
+    }, 10)
+  }
+
+  set showProgress(value) {
+    this.#toastElement.classList.toggle('progress', value)
+    this.#toastElement.style.setProperty('--progress', 1)
+    if (value) {
+      setInterval(() => {
+        this.#toastElement.style.setProperty(
+          '--progress',
+          this.#timeLeft / this.#timeTotal
+        )
+      }, 10)
+    }
+  }
+
+  set pauseOnHover(value) {
+    if (value) {
+      this.#toastElement.addEventListener(
+        'mouseenter',
+        () => (this.#paused = true)
+      )
+      this.#toastElement.addEventListener(
+        'mouseleave',
+        () => (this.#paused = false)
+      )
+    }
   }
 
   set canClose(value) {
@@ -59,6 +108,8 @@ export default class Toast {
   }
 
   remove() {
+    clearInterval(this.#progressInterval)
+    clearTimeout(this.#autoCloseTimeout)
     const container = this.#toastElement.parentElement
     this.#toastElement.classList.remove('show') // remove animation
     this.#toastElement.addEventListener('transitionend', () => {

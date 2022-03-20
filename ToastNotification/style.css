@@ -17,8 +17,8 @@ body {
 
 .toast-container {
   position: fixed;
-  margin: 10px;
   display: flex;
+  margin: 10px;
   flex-direction: column;
   gap: 0.5em;
 }
@@ -30,6 +30,7 @@ body {
   border-radius: 0.2em;
   background-color: white;
   cursor: pointer;
+  overflow: hidden;
   box-shadow: 0 0 10px rgb(146, 146, 146);
   transition: transform 0.2s;
 }
@@ -47,6 +48,17 @@ body {
 }
 .toast-container .toast.show {
   transform: translateX(0);
+}
+
+.toast.progress::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  width: calc(100% * var(--progress));
+  background-color: red;
 }
 
 .toast.can-close::after {
