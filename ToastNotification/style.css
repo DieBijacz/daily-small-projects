@@ -8,6 +8,7 @@
   box-sizing: border-box;
   font-family: 'Hubballi', cursive;
   font-size: 1.1rem;
+  outline: none;
 }
 
 .range-input {
@@ -21,6 +22,12 @@
   display: grid;
   place-content: center;
   height: 100vh;
+  border-radius: 10px;
+}
+input {
+  padding: 10px;
+  border: 1px solid rgb(192, 192, 192);
+  border-radius: 10px;
 }
 .inputs {
   display: flex;
@@ -31,8 +38,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-radius: 10px;
+  margin: 5px;
   padding: 10px;
-  box-shadow: 0 0 20px rgb(187, 187, 187);
+  box-shadow: 0 0 5px rgb(187, 187, 187);
   width: 160px;
   height: 90px;
 }
@@ -57,13 +66,11 @@ button {
   padding: 10px;
   background-color: transparent;
   border: #333 1px solid;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-input {
-  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* ===================================== TOAST ===================================== */
@@ -109,9 +116,9 @@ input {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 5px;
   width: calc(100% * var(--progress));
-  background-color: red;
+  background-color: var(--progress-bar-color);
 }
 
 .toast.can-close::after {

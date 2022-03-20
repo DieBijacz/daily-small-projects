@@ -10,7 +10,9 @@ document.querySelector('button').addEventListener('click', (e) => {
   const position = document.querySelector(
     'input[name="position"]:checked'
   ).value
+  const type = document.querySelector('#select-type').value
 
+  console.log(type)
   const toast = new Toast({
     text: `${textValue}`,
     autoClose: timeRange * 1000,
@@ -18,5 +20,6 @@ document.querySelector('button').addEventListener('click', (e) => {
     showProgress: showProgress,
     pauseOnHover: pauseOnHover,
     position: position,
+    type: type,
   })
 })

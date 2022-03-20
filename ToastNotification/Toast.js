@@ -1,12 +1,3 @@
-const DEFAULT_OPTIONS = {
-  autoClose: '3000',
-  position: 'top right',
-  onClose: () => {},
-  canClose: true,
-  showProgress: true,
-  pauseOnHover: true,
-}
-
 export default class Toast {
   #toastElement
   #autoCloseTimeout
@@ -23,7 +14,7 @@ export default class Toast {
       this.#toastElement.classList.add('show')
     })
     this.#removeBinded = this.remove.bind(this)
-    this.update({ ...DEFAULT_OPTIONS, ...options })
+    this.update({ ...options })
   }
 
   // SETTERS
@@ -92,6 +83,31 @@ export default class Toast {
     }
   }
 
+  set type(value) {
+    switch (value) {
+      case 'normal':
+        this.#toastElement.style.setProperty('color', 'black')
+        this.#toastElement.style.setProperty('--progress-bar-color', 'black')
+        return
+      case 'error':
+        this.#toastElement.style.setProperty('color', 'red')
+        this.#toastElement.style.setProperty('--progress-bar-color', 'red')
+        return
+      case 'information':
+        this.#toastElement.style.setProperty('color', '#2872F0')
+        this.#toastElement.style.setProperty('--progress-bar-color', '#2872F0')
+        return
+      case 'success':
+        this.#toastElement.style.setProperty('color', '#2D9F2D')
+        this.#toastElement.style.setProperty('--progress-bar-color', '#2D9F2D')
+        return
+      default:
+        this.#toastElement.style.setProperty('color', 'black')
+        this.#toastElement.style.setProperty('--progress-bar-color', 'black')
+        return
+    }
+  }
+
   // FUNCTIONS
   update(options) {
     Object.entries(options).forEach(([key, value]) => {
@@ -110,7 +126,6 @@ export default class Toast {
       if (container.hasChildNodes()) return
       container.remove()
     })
-    this.onClose()
   }
 }
 
