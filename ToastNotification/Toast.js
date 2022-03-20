@@ -12,13 +12,8 @@ export default class Toast {
   #autoCloseTimeout
   #progressInterval
   #removeBinded
-  #visibleSince
   #timeTotal
-  #timeGone
-  #pause
-  #unpause
   #paused = false
-  #hoverPause
   #timeLeft
 
   constructor(options) {
@@ -28,7 +23,6 @@ export default class Toast {
       this.#toastElement.classList.add('show')
     })
     this.#removeBinded = this.remove.bind(this)
-    this.#hoverPause = () => (this.#paused = false)
     this.update({ ...DEFAULT_OPTIONS, ...options })
   }
 
@@ -53,14 +47,12 @@ export default class Toast {
     this.#timeTotal = value
     this.#timeLeft = this.#timeTotal
     this.#progressInterval = setInterval(() => {
-      this.#timeLeft -= 10
-      if (this.#paused) {
+      if (this.#paused === false) {
+        this.#timeLeft -= 10
+      }
+      if (this.#timeLeft <= 0) {
+        this.remove()
         clearInterval(this.#progressInterval)
-      } else {
-        if (this.#timeLeft <= 0) {
-          this.remove()
-          clearInterval(this.#progressInterval)
-        }
       }
     }, 10)
   }
@@ -81,7 +73,7 @@ export default class Toast {
   set pauseOnHover(value) {
     if (value) {
       this.#toastElement.addEventListener(
-        'mouseenter',
+        'mouseover',
         () => (this.#paused = true)
       )
       this.#toastElement.addEventListener(
