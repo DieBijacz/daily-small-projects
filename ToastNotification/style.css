@@ -1,19 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Hubballi&display=swap');
 
-body {
-  font-family: 'Hubballi', cursive;
-}
-
 *,
 *::after,
 *::before {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Hubballi', cursive;
+  font-size: 1.1rem;
 }
-body {
-  background-color: rgb(228, 228, 228);
+
+.range-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
+
+.card {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+}
+.inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  box-shadow: 0 0 20px rgb(187, 187, 187);
+  width: 160px;
+  height: 90px;
+}
+
+.top,
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #333;
+  box-shadow: 0 0 20px rgb(233, 233, 233);
+  padding: 1rem;
+}
+
+button {
+  padding: 10px;
+  background-color: transparent;
+  border: #333 1px solid;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+input {
+  padding: 10px;
+}
+
+/* ===================================== TOAST ===================================== */
 
 .toast-container {
   position: fixed;

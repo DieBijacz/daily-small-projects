@@ -9,6 +9,46 @@
   <title>Document</title>
 </head>
 <body>
-  <button>show toast</button>
+  <div class="card">
+    <form class="form">
+      <input type="text" id="text-value" value="Text inside Toast">
+      <div class="inputs">
+        <div class="checkboxes">
+          <div class="range-input">
+            <label for="time-range">Time</label>
+            <input type="range" id="time-range" min="1" max="10" value="3">
+          </div>
+          <div>
+            <input checked type="checkbox" name="showProgress" id="showProgress">
+            <label for="showProgress">show progress bar</label>
+          </div>
+          <div>
+            <input checked type="checkbox" name="clickToClose" id="clickToClose">
+            <label for="clickToClose">close on click</label>
+          </div>
+          <div>
+            <input checked type="checkbox" name="pauseOnHover" id="pauseOnHover">
+            <label for="pauseOnHover">pause option</label>
+          </div>
+        </div>
+        <div class="screenPosition">
+          Position on screen
+          <div class="screen">
+            <div class="top">
+              <input type="radio" name="position" id="position" value="top left">
+              <input type="radio" name="position" id="position" value="top center">
+              <input checked type="radio" name="position" id="position" value="top right">
+            </div>
+            <div class="bottom">
+              <input type="radio" name="position" id="position" value="bottom left">
+              <input type="radio" name="position" id="position" value="bottom center">
+              <input type="radio" name="position" id="position" value="bottom right">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit">show toast</button>
+    </form>
+  </div>
 </body>
 </html>
