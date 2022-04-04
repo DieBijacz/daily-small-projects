@@ -46,6 +46,10 @@ body {
   user-select: none;
 }
 
+.board div {
+  border: inset;
+}
+
 .board>[data-status="hidden"] {
   background-color: #BBB;
   cursor: pointer;
