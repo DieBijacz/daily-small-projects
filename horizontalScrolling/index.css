@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  overscroll-behavior: none;
+}
+
+.main {
+  position: fixed;
+  inset: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2800px;
+  height: 100vh;
+}
+
+.inner {
+  position: absolute;
+  top: 15%;
+  height: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.item {
+  position: relative;
+  width: 400px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.img {
+  position: absolute;
+  left: -100px;
+  right: -100px;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
