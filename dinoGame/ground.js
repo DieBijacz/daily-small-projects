@@ -1,6 +1,6 @@
 import { getCutomProperty, incrementCustomProperty, setCustomProperty } from './updateCustomProperty.js'
 const grounds = document.querySelectorAll('[data-ground')
-const SPEED = .02
+const SPEED = 0.05
 
 export function setupGround() {
   // have two tiles of ground one after another inline
