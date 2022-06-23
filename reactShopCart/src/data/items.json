@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Airpods",
+    "price": 10.99,
+    "imgUrl": "images/airpods.jpg"
+  },
+  {
+    "id": 2,
+    "name": "DJJ Drone",
+    "price": 10199,
+    "imgUrl": "images/drone.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Pioneer Headphones",
+    "price": 1.99,
+    "imgUrl": "images/headphones.jpg"
+  },
+  {
+    "id": 4,
+    "name": "PS 4 Controller",
+    "price": 1099.99,
+    "imgUrl": "images/pspad.jpg"
+  }
+]
