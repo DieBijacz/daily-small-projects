@@ -11,7 +11,7 @@
   --clr-light: #fff;
   --clr-accent: rgb(222, 52, 0);
   --clr-accent-dark: rgb(163, 38, 0);
-  --clr-secondary: rgb(0, 62, 163);
+  --clr-secondary: rgb(228, 156, 24);
   --br: .5em;
   --blur: 5px
 ;
@@ -38,6 +38,17 @@ img {
   max-width: 100%;
 }
 
+.btn {
+  border: 0;
+  background: var(--clr-secondary);
+  color: var(--clr-light);
+  border-radius: 100vw;
+  padding: .5em 1.5em;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: .9rem;
+}
+
 .game {
   position: relative;
   width: 12.5rem;
@@ -59,11 +70,12 @@ img {
 
 .rank {
   position: absolute;
+  z-index: 2;
   font-weight: bold;
   top: 0;
   right: 1em;
   padding: 0.25em .5em .75em;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--clr-dark);
   -webkit-clip-path: polygon(100% 0, 100% 100%, 50% 85%, 0 100%, 0 0);
           clip-path: polygon(100% 0, 100% 100%, 50% 85%, 0 100%, 0 0);
 }
@@ -79,7 +91,7 @@ img {
 
 .front .name {
   text-align: center;
-  margin: .75em;
+  margin: .5em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -112,7 +124,72 @@ img {
 }
 
 .back {
-  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  opacity: 0;
+  position: absolute;
+  bottom: -3%;
+  left: 0;
+  right: 0;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  gap: .5em;
+}
+
+.back .streaming-info {
+  -webkit-columns: 2;
+          columns: 2;
+  -webkit-column-rule: 2px solid rgba(255, 255, 255, 0.25);
+          column-rule: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.back .streaming-info .game-stat {
+  font-size: .9rem;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+.back .streaming-info .game-stat span {
+  display: block;
+  font-size: .8rem;
+}
+
+.back .streamers {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(0, 1fr))[3];
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+}
+
+.back .streamers .streamer {
+  text-align: center;
+  font-size: .8rem;
+  cursor: pointer;
+}
+
+.back .streamers .streamer .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.back .streamers .streamer .number {
+  font-size: .6rem;
+}
+
+.back .streamers .streamer img {
+  margin: auto;
+  width: 3em;
+  height: 3em;
 }
 
 .background {
@@ -134,23 +211,97 @@ img {
   height: 110%;
   background-image: url("images/624x745_EN.jpg");
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   -webkit-filter: blur(var(--blur));
           filter: blur(var(--blur));
 }
 
+.game:hover .rank {
+  -webkit-animation: rankAnimation 250ms;
+          animation: rankAnimation 250ms;
+  top: -5%;
+  right: -5%;
+}
+
 .game:hover .front {
-  -webkit-transform: translateY(-20%);
-          transform: translateY(-20%);
+  -webkit-transform: translateY(-25%) scale(0.8);
+          transform: translateY(-25%) scale(0.8);
+}
+
+.game:hover .front .stats {
+  opacity: 0;
+}
+
+.game:hover .front .name {
+  font-size: 1.7rem;
+  -webkit-transition: 200ms;
+  transition: 200ms;
 }
 
 .game:hover .background {
-  -webkit-transition: opacity 100ms linear, -webkit-transform 250ms ease-in-out;
-  transition: opacity 100ms linear, -webkit-transform 250ms ease-in-out;
-  transition: transform 250ms ease-in-out, opacity 100ms linear;
-  transition: transform 250ms ease-in-out, opacity 100ms linear, -webkit-transform 250ms ease-in-out;
-  -webkit-transform: scale(1.4, 1.2);
-          transform: scale(1.4, 1.2);
+  -webkit-transition: opacity 100ms linear, -webkit-transform 200ms ease-in-out;
+  transition: opacity 100ms linear, -webkit-transform 200ms ease-in-out;
+  transition: transform 200ms ease-in-out, opacity 100ms linear;
+  transition: transform 200ms ease-in-out, opacity 100ms linear, -webkit-transform 200ms ease-in-out;
+  -webkit-transform: scale(1.3, 1.1);
+          transform: scale(1.3, 1.1);
   opacity: .7;
+}
+
+.game:hover .back {
+  opacity: 1;
+}
+
+.game:hover .back .btn:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.game:hover .back .streamer:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+@-webkit-keyframes rankAnimation {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0;
+    -webkit-transform: translateY(-200%);
+            transform: translateY(-200%);
+  }
+  20% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes rankAnimation {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0;
+    -webkit-transform: translateY(-200%);
+            transform: translateY(-200%);
+  }
+  20% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
 }
 /*# sourceMappingURL=style.css.map */

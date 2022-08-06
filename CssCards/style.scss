@@ -11,7 +11,7 @@
   --clr-light: #fff;
   --clr-accent: rgb(222, 52, 0);
   --clr-accent-dark: rgb(163, 38, 0);
-  --clr-secondary: rgb(0, 62, 163);
+  --clr-secondary: rgb(228, 156, 24);
   --br: .5em;
   --blur: 5px
 }
@@ -36,6 +36,17 @@ img {
   max-width: 100%;
 }
 
+.btn {
+  border: 0;
+  background: var(--clr-secondary);
+  color: var(--clr-light);
+  border-radius: 100vw;
+  padding: .5em 1.5em;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: .9rem;
+}
+
 .game {
   position: relative;
   width: 12.5rem;
@@ -54,11 +65,12 @@ img {
 
 .rank {
   position: absolute;
+  z-index: 2;
   font-weight: bold;
   top: 0;
   right: 1em;
   padding: 0.25em .5em .75em;
-  background: rgba(0, 0, 0, .6);
+  background: var(--clr-dark);
   clip-path: polygon(100% 0, 100% 100%, 50% 85%, 0 100%, 0 0);
 }
 
@@ -71,7 +83,7 @@ img {
 
   .name {
     text-align: center;
-    margin: .75em;
+    margin: .5em;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -98,7 +110,59 @@ img {
 }
 
 .back {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  position: absolute;
+  bottom: -3%;
+  left: 0;
+  right: 0;
+  transition: 200ms;
+  gap: .5em;
+
+  .streaming-info {
+    columns: 2;
+    column-rule: 2px solid rgba(255, 255, 255, .25);
+
+    .game-stat {
+      font-size: .9rem;
+      display: grid;
+      place-items: center;
+
+      span {
+        display: block;
+        font-size: .8rem;
+      }
+    }
+  }
+
+  .streamers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+
+    .streamer {
+      text-align: center;
+      font-size: .8rem;
+      cursor: pointer;
+
+      .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .number {
+        font-size: .6rem;
+      }
+
+      img {
+        margin: auto;
+        width: 3em;
+        height: 3em;
+      }
+    }
+  }
 }
 
 .background {
@@ -118,26 +182,72 @@ img {
     height: 110%;
     background-image: url('images/624x745_EN.jpg');
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     filter: blur(var(--blur));
   }
 }
 
 .game:hover {
+  .rank {
+    animation: rankAnimation 250ms;
+    top: -5%;
+    right: -5%;
+  }
 
   .front {
-    transform: translateY(-20%);
+    transform:
+      translateY(-25%) scale(.8);
+
+    .stats {
+      opacity: 0;
+    }
+
+    .name {
+      font-size: 1.7rem;
+      transition: 200ms;
+    }
+
   }
 
   .background {
     transition:
-      transform 250ms ease-in-out,
+      transform 200ms ease-in-out,
       opacity 100ms linear;
-    transform: scale(1.4, 1.2);
+    transform: scale(1.3, 1.1);
     opacity: .7;
   }
 
-  // .back {
-  //   display: block;
-  // }
+  .back {
+    opacity: 1;
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .streamer:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+@keyframes rankAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  10% {
+    opacity: 0;
+    transform: translateY(-200%);
+  }
+
+  20% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
