@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="dropdown">
+    <input type="text" class="text02" readonly placeholder="Dropdown menu">
+    <div class="options">
+      <div onmouseover="pick('JavaScript')" class="option">JavaScript</div>
+      <div onmouseover="pick('Python')" class="option">Python</div>
+      <div onmouseover="pick('Go')" class="option">Go</div>
+      <div onmouseover="pick('Swift')" class="option">Swift</div>
+      <div onmouseover="pick('Ruby')" class="option">Ruby</div>
+    </div>
+  </div>
+  <script>
+    function pick(e) {
+      document.querySelector('.text02').value = e
+    }
+    const dropdown = document.querySelector('.dropdown')
+    dropdown.onclick = () => {
+      dropdown.classList.toggle('active')
+      console.log('dsad')
+    }
+  </script>
+</body>
+
+</html>
